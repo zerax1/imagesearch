@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            
+            margin-right: auto;
+            margin-left: auto;
+            width: 1000px;
+
+        }
+        body{
+            background: linear-gradient(90deg, rgba(0,27,36,1) 5%, rgba(130,39,209,1) 44%, rgba(0,212,255,1) 100%);
+
+        }
+        input{
+            margin-top: 100px;
+            margin-right: auto;
+            margin-left: 400px;
+            width: 500px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: none;
+            
+        }
+        img{
+            width: 300px;
+            border-radius: 18px;
+            margin: 5px 5px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="input" placeholder="Search image...">
+    <div id="div"></div>
+    <script>
+       input.onkeyup = async (event)=>{
+            div.innerHTML=null
+            if(event.keyCode ==13){
+                let response = await fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${input.value}&pageNumber=1&pageSize=10&autoCorrect=true`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-key": "a182f6fda3mshd846a44d8e94d3dp1791fbjsn160687180088",
+		"x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com"
+	}
+}) 
+response = await response.json()
+
+
+            //response.value[0].url
+            for(let i in response.value){
+                let image = document.createElement('img')
+                image.src = response.value[i].url
+                div.append(image)
+                body.background_image=(response.value[0])
+            }
+
+
+            }
+        }/*
+        async function search(){
+            let response = await fetch("https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=taylor%20swift&pageNumber=1&pageSize=10&autoCorrect=true", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-key": "a182f6fda3mshd846a44d8e94d3dp1791fbjsn160687180088",
+		"x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com"
+	}
+})
+            response = await response.json()
+
+
+            console.log(response)
+        }
+        search()*/
+    </script>
+</body>
+</html>
